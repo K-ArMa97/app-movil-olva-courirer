@@ -11,7 +11,7 @@ type Props = {
   navigation: NativeStackNavigationProp<AuthStackParamList, 'Login'>;
 };
 
-export default function LoginScreen({navigation}:Props) {
+export default function LoginScreen({ navigation }: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { handleLogin, loading } = useAuth();
@@ -19,22 +19,39 @@ export default function LoginScreen({navigation}:Props) {
   const onSubmit = async () => {
     try {
       await handleLogin(email, password);
+      // No necesitas redireccionar aquí si AppNavigator usa isAuthenticated
       Alert.alert('Bienvenido', 'Sesión iniciada correctamente');
     } catch (err: any) {
-      Alert.alert('Error', err.message);
+      Alert.alert('Error', err.message || 'Ocurrió un error al iniciar sesión');
     }
   };
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar Sesión</Text>
-      <Input placeholder="Correo" value={email} onChangeText={setEmail} keyboardType="email-address" />
-      <Input placeholder="Contraseña" value={password} onChangeText={setPassword} secureTextEntry />
-      <Button title={loading ? 'Cargando...' : 'Entrar'} onPress={onSubmit} />
+
+      <Input
+        placeholder="Correo"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+      />
+
+      <Input
+        placeholder="Contraseña"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+
+      <Button
+        title={loading ? 'Cargando...' : 'Entrar'}
+        onPress={onSubmit}
+      />
+
       <TouchableOpacity onPress={() => navigation.navigate('Register')}>
         <Text style={styles.link}>¿No tienes cuenta? Regístrate</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
