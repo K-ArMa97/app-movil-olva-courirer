@@ -19,9 +19,9 @@ export default function LoginScreen({navigation}:Props) {
   const onSubmit = async () => {
     try {
       await handleLogin(email, password);
-      Alert.alert('Bienvenido', 'Sesión iniciada correctamente');
+      navigation.replace('Authenticated'); // Redirige a la pantalla de autenticación
     } catch (err: any) {
-      Alert.alert('Error', err.message);
+      Alert.alert('Error', err.message || 'Ocurrió un error al iniciar sesión');
     }
   };
 

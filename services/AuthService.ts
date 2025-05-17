@@ -8,7 +8,7 @@ export const login = async (email: string, password: string): Promise<void> => {
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (email === 'admin@empresa.com' && password === '123456') {
+      if (email === 'admin@empresa.com' && password === 'admin123') {
         resolve();
       } else {
         reject(new Error('Credenciales inválidas'));
